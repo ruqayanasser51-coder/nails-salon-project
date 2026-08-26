@@ -1,32 +1,44 @@
 <nav id="navbar">
 
+  <!-- LOGO -->
   <div class="nav-left">
 
-    <a class="nav-brand" href="/">
-      Nail Salon
+    <a href="/" class="navbar-logo">
+      <img
+        src="/stylesheets/images/naillogo1.jpg"
+        alt="Rare Nails"
+      />
     </a>
 
   </div>
 
 
+  <!-- NAVIGATION -->
   <div class="nav-right">
 
     <% if (user) { %>
 
-      <a class="nav-link" href="/services">
+      <!-- SERVICES -->
+      <a
+        class="nav-link"
+        href="/services"
+      >
         Services
       </a>
 
 
+      <!-- CUSTOMER -->
       <% if (user.role === 'customer') { %>
 
-        <a class="nav-link" href="/appointments">
+        <a
+          class="nav-link"
+          href="/appointments"
+        >
           My Appointments
         </a>
 
 
         <!-- NOTIFICATIONS -->
-
         <div class="notification-wrapper">
 
           <button
@@ -35,6 +47,7 @@
             id="notificationBell"
             aria-label="Notifications"
           >
+
             🔔
 
             <% if (notificationCount > 0) { %>
@@ -48,6 +61,7 @@
           </button>
 
 
+          <!-- NOTIFICATION DROPDOWN -->
           <% if (notificationCount > 0) { %>
 
             <div
@@ -71,6 +85,7 @@
 
                   <p>
                     Date:
+
                     <%= new Date(
                       appointment.appointmentDate
                     ).toLocaleDateString() %>
@@ -102,11 +117,17 @@
                       new Date();
 
                     appointmentDate.setHours(
-                      0, 0, 0, 0
+                      0,
+                      0,
+                      0,
+                      0
                     );
 
                     today.setHours(
-                      0, 0, 0, 0
+                      0,
+                      0,
+                      0,
+                      0
                     );
 
                     const differenceInTime =
@@ -164,6 +185,7 @@
       <% } %>
 
 
+      <!-- ADMIN -->
       <% if (user.role === 'admin') { %>
 
         <a
@@ -184,6 +206,7 @@
       <% } %>
 
 
+      <!-- SIGN OUT -->
       <a
         class="nav-link nav-signout"
         href="/auth/sign-out"
@@ -193,6 +216,9 @@
 
 
     <% } else { %>
+
+
+      <!-- NOT SIGNED IN -->
 
       <a
         class="nav-link"
@@ -209,12 +235,15 @@
         Sign In
       </a>
 
+
     <% } %>
 
   </div>
 
 </nav>
 
+
+<!-- NOTIFICATION SCRIPT -->
 
 <script>
 

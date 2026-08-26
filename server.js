@@ -8,7 +8,23 @@ const express = require('express');
 
 const app = express();
 
-// Middleware
+
+// =========================================
+// RENDER / PRODUCTION
+// =========================================
+
+const isProduction =
+  process.env.NODE_ENV === 'production';
+
+if (isProduction) {
+  app.set('trust proxy', 1);
+}
+
+
+// =========================================
+// MIDDLEWARE
+// =========================================
+
 const session = require('express-session');
 const MongoStore = require('connect-mongo').MongoStore;
 const methodOverride = require('method-override');
@@ -18,16 +34,30 @@ const isSignedIn = require('./middleware/isSignedIn');
 const isAdmin = require('./middleware/isAdmin');
 const addUserToViews = require('./middleware/addUserToViews');
 
-// Routers
+
+// =========================================
+// ROUTERS
+// =========================================
+
 const authRouter = require('./routes/authRouter');
 const pagesRouter = require('./routes/pagesRouter');
 
-// Models
+
+// =========================================
+// MODELS
+// =========================================
+
 const Service = require('./models/service');
 const Appointment = require('./models/appointment');
 
-// Port
-const port = process.env.PORT ? process.env.PORT : '3000';
+
+// =========================================
+// PORT
+// =========================================
+
+const port = process.env.PORT
+  ? process.env.PORT
+  : '3000';
 
 
 // =========================================
@@ -35,7 +65,9 @@ const port = process.env.PORT ? process.env.PORT : '3000';
 // =========================================
 
 app.use(
-  express.static(path.join(__dirname, 'public'))
+  express.static(
+    path.join(__dirname, 'public')
+  )
 );
 
 app.use(
@@ -44,21 +76,39 @@ app.use(
   })
 );
 
-app.use(methodOverride('_method'));
+app.use(
+  methodOverride('_method')
+);
 
-app.use(morgan('dev'));
+app.use(
+  morgan('dev')
+);
+
+
+// =========================================
+// SESSION
+// =========================================
 
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
+
     resave: false,
-    saveUninitialized: true,
+
+    saveUninitialized: false,
 
     store: MongoStore.create({
       mongoUrl: process.env.MONGODB_URI,
     }),
+
+    cookie: {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isProduction,
+    },
   })
 );
+
 
 app.use(addUserToViews);
 
@@ -76,67 +126,131 @@ app.use('/auth', authRouter);
 // SERVICES
 // =========================================
 
-// Show all services
-app.get('/services', async (req, res) => {
-  const services = await Service.find();
 
-  res.render('services/index.ejs', {
-    services,
-  });
-});
+// Show all services
+
+app.get(
+  '/services',
+  async (req, res) => {
+
+    const services =
+      await Service.find();
+
+    res.render(
+      'services/index.ejs',
+      {
+        services,
+      }
+    );
+  }
+);
 
 
 // Show page to create service
-app.get('/services/new', (req, res) => {
-  res.render('services/new.ejs');
-});
+
+app.get(
+  '/services/new',
+  (req, res) => {
+
+    res.render(
+      'services/new.ejs'
+    );
+  }
+);
 
 
 // Create service
-app.post('/services', async (req, res) => {
-  await Service.create(req.body);
 
-  res.redirect('/services');
-});
+app.post(
+  '/services',
+  async (req, res) => {
+
+    await Service.create(
+      req.body
+    );
+
+    res.redirect(
+      '/services'
+    );
+  }
+);
 
 
 // Edit service page
-app.get('/services/:id/edit', async (req, res) => {
-  const service = await Service.findById(req.params.id);
 
-  res.render('services/edit.ejs', {
-    service,
-  });
-});
+app.get(
+  '/services/:id/edit',
+  async (req, res) => {
+
+    const service =
+      await Service.findById(
+        req.params.id
+      );
+
+    res.render(
+      'services/edit.ejs',
+      {
+        service,
+      }
+    );
+  }
+);
 
 
 // Show one service
-app.get('/services/:id', async (req, res) => {
-  const service = await Service.findById(req.params.id);
 
-  res.render('services/show.ejs', {
-    service,
-  });
-});
+app.get(
+  '/services/:id',
+  async (req, res) => {
+
+    const service =
+      await Service.findById(
+        req.params.id
+      );
+
+    res.render(
+      'services/show.ejs',
+      {
+        service,
+      }
+    );
+  }
+);
 
 
 // Update service
-app.put('/services/:id', async (req, res) => {
-  await Service.findByIdAndUpdate(
-    req.params.id,
-    req.body
-  );
 
-  res.redirect('/services');
-});
+app.put(
+  '/services/:id',
+  async (req, res) => {
+
+    await Service.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
+
+    res.redirect(
+      '/services'
+    );
+  }
+);
 
 
 // Delete service
-app.delete('/services/:id', async (req, res) => {
-  await Service.findByIdAndDelete(req.params.id);
 
-  res.redirect('/services');
-});
+app.delete(
+  '/services/:id',
+  async (req, res) => {
+
+    await Service.findByIdAndDelete(
+      req.params.id
+    );
+
+    res.redirect(
+      '/services'
+    );
+  }
+);
 
 
 // =========================================
@@ -153,14 +267,19 @@ app.use(isSignedIn);
 app.get(
   '/appointments/new/:serviceId',
   async (req, res) => {
-    const service = await Service.findById(
-      req.params.serviceId
-    );
 
-    res.render('appointments/new.ejs', {
-      service,
-      error: null,
-    });
+    const service =
+      await Service.findById(
+        req.params.serviceId
+      );
+
+    res.render(
+      'appointments/new.ejs',
+      {
+        service,
+        error: null,
+      }
+    );
   }
 );
 
@@ -169,75 +288,96 @@ app.get(
 // CREATE APPOINTMENT
 // =========================================
 
-app.post('/appointments', async (req, res) => {
-  const {
-    serviceId,
-    appointmentDate,
-    appointmentTime,
-    notes,
-  } = req.body;
+app.post(
+  '/appointments',
+  async (req, res) => {
 
-
-  // Check if the date and time are already booked
-  const existingAppointment =
-    await Appointment.findOne({
+    const {
+      serviceId,
       appointmentDate,
       appointmentTime,
+      notes,
+    } = req.body;
+
+
+    // Check if the date and time
+    // are already booked
+
+    const existingAppointment =
+      await Appointment.findOne({
+        appointmentDate,
+        appointmentTime,
+        status: 'booked',
+      });
+
+
+    // If already booked,
+    // stay on booking page
+
+    if (existingAppointment) {
+
+      const service =
+        await Service.findById(
+          serviceId
+        );
+
+      return res
+        .status(409)
+        .render(
+          'appointments/new.ejs',
+          {
+            service,
+
+            error:
+              'This date and time is already booked. Please choose another time.',
+          }
+        );
+    }
+
+
+    // Create appointment
+
+    await Appointment.create({
+      user: req.session.user._id,
+      service: serviceId,
+      appointmentDate,
+      appointmentTime,
+      notes,
       status: 'booked',
     });
 
 
-  // If already booked, stay on booking page
-  if (existingAppointment) {
-    const service = await Service.findById(
-      serviceId
-    );
+    // Go to My Appointments
 
-    return res.status(409).render(
-      'appointments/new.ejs',
-      {
-        service,
-        error:
-          'This date and time is already booked. Please choose another time.',
-      }
+    res.redirect(
+      '/appointments'
     );
   }
-
-
-  // Create appointment
-  await Appointment.create({
-    user: req.session.user._id,
-    service: serviceId,
-    appointmentDate,
-    appointmentTime,
-    notes,
-    status: 'booked',
-  });
-
-
-  // Go to My Appointments
-  res.redirect('/appointments');
-});
+);
 
 
 // =========================================
 // MY APPOINTMENTS
 // =========================================
 
-app.get('/appointments', async (req, res) => {
-  const appointments =
-    await Appointment.find({
-      user: req.session.user._id,
-    }).populate('service');
+app.get(
+  '/appointments',
+  async (req, res) => {
+
+    const appointments =
+      await Appointment.find({
+        user: req.session.user._id,
+      }).populate('service');
 
 
-  res.render(
-    'appointments/index.ejs',
-    {
-      appointments,
-    }
-  );
-});
+    res.render(
+      'appointments/index.ejs',
+      {
+        appointments,
+      }
+    );
+  }
+);
 
 
 // =========================================
@@ -256,6 +396,7 @@ app.get(
 
 
     if (!appointment) {
+
       return res.send(
         'Appointment not found.'
       );
@@ -289,11 +430,13 @@ app.put(
 
     // Check if another appointment
     // already uses this date and time
+
     const existingAppointment =
       await Appointment.findOne({
         appointmentDate,
         appointmentTime,
         status: 'booked',
+
         _id: {
           $ne: req.params.id,
         },
@@ -301,6 +444,7 @@ app.put(
 
 
     if (existingAppointment) {
+
       return res.send(
         'This date and time is already booked. Please choose another time.'
       );
@@ -312,6 +456,7 @@ app.put(
         _id: req.params.id,
         user: req.session.user._id,
       },
+
       {
         appointmentDate,
         appointmentTime,
@@ -320,7 +465,9 @@ app.put(
     );
 
 
-    res.redirect('/appointments');
+    res.redirect(
+      '/appointments'
+    );
   }
 );
 
@@ -338,13 +485,16 @@ app.delete(
         _id: req.params.id,
         user: req.session.user._id,
       },
+
       {
         status: 'cancelled',
       }
     );
 
 
-    res.redirect('/appointments');
+    res.redirect(
+      '/appointments'
+    );
   }
 );
 
@@ -382,15 +532,18 @@ app.get(
   '/notifications',
   async (req, res) => {
 
-    const today = new Date();
+    const today =
+      new Date();
 
 
     const appointments =
       await Appointment.find({
 
-        user: req.session.user._id,
+        user:
+          req.session.user._id,
 
-        status: 'booked',
+        status:
+          'booked',
 
         appointmentDate: {
           $gte: today,
@@ -413,9 +566,14 @@ app.get(
 // START SERVER
 // =========================================
 
-app.listen(port, () => {
-  console.log(
-    `The express app is ready on port ${port}!`
-  );
-});
+app.listen(
+  port,
+  '0.0.0.0',
+  () => {
 
+    console.log(
+      `The express app is ready on port ${port}!`
+    );
+
+  }
+);

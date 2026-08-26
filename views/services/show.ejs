@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8" />
 
   <meta
@@ -19,18 +21,32 @@
     href="/stylesheets/partials.css"
   />
 
-  <title><%= service.name %> | Nail Salon</title>
+  <link
+    rel="icon"
+    type="image/png"
+    href="/images/favicon.png"
+  />
+
+  <title>
+    <%= service.name %> | Rare Nails
+  </title>
+
 </head>
+
 
 <body>
 
   <%- include('../partials/_navbar.ejs') %>
 
+
   <main class="service-details-page">
 
     <section class="service-details">
 
-      <!-- SERVICE IMAGE -->
+
+      <!-- =========================================
+           SERVICE IMAGE
+           ========================================= -->
 
       <div class="service-details-image">
 
@@ -67,22 +83,29 @@
       </div>
 
 
-      <!-- SERVICE CONTENT -->
+      <!-- =========================================
+           SERVICE CONTENT
+           ========================================= -->
 
       <div class="service-details-content">
+
 
         <p class="section-label">
           NAIL SERVICE
         </p>
 
+
         <h1>
           <%= service.name %>
         </h1>
+
 
         <p class="service-details-description">
           <%= service.description %>
         </p>
 
+
+        <!-- PRICE / DURATION -->
 
         <div class="service-details-info">
 
@@ -113,14 +136,26 @@
 
         </div>
 
-<%if (user.role=== 'customer'){%>
-        <a
-          href="/appointments/new/<%= service._id %>"
-          class="service-book-button"
-        >
-          Book Appointment
-        </a>
-      <%}%>
+
+        <!-- =========================================
+             CUSTOMER: BOOK APPOINTMENT
+             ========================================= -->
+
+        <% if (user && user.role === 'customer') { %>
+
+          <a
+            href="/appointments/new/<%= service._id %>"
+            class="service-book-button"
+          >
+            Book Appointment
+          </a>
+
+        <% } %>
+
+
+        <!-- =========================================
+             ADMIN: EDIT / DELETE
+             ========================================= -->
 
         <% if (user && user.role === 'admin') { %>
 
@@ -131,6 +166,7 @@
             >
               Edit Service
             </a>
+
 
             <form
               action="/services/<%= service._id %>?_method=DELETE"
@@ -148,12 +184,15 @@
         <% } %>
 
 
+        <!-- BACK TO SERVICES -->
+
         <a
           href="/services"
           class="back-services-link"
         >
           ← Back to Services
         </a>
+
 
       </div>
 
