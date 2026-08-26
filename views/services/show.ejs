@@ -113,14 +113,14 @@
 
         </div>
 
-
+<%if (user.role=== 'customer'){%>
         <a
           href="/appointments/new/<%= service._id %>"
           class="service-book-button"
         >
           Book Appointment
         </a>
-
+      <%}%>
 
         <% if (user && user.role === 'admin') { %>
 

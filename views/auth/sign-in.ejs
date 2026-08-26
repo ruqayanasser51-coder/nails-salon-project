@@ -1,37 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In | Nail Salon</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <body>
-    <h1>Welcome Back</h1>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/partials.css" />
 
-    <form action="/auth/sign-in" method="POST">
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        required
-      />
+  <title>Sign In | Nail Salon</title>
+</head>
 
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        required
-      />
+<body>
 
-      <button type="submit">Sign In</button>
-    </form>
+  <%- include('../partials/_navbar.ejs') %>
 
-    <p>
-      Don't have an account?
-      <a href="/auth/sign-up">Create an Account</a>
-    </p>
-  </body>
+  <main class="auth-page">
+
+    <section class="auth-card">
+
+    
+      <h1>
+        Welcome Back </h1>
+
+     
+
+      <p class="auth-intro">
+        Sign in to manage your appointments
+        and enjoy your next moment of self-care
+      </p>
+
+      <form
+        action="/auth/sign-in"
+        method="POST"
+        class="auth-form"
+      >
+
+        <div class="auth-field">
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label for="password">
+            Password
+          </label>
+
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="auth-button"
+        >
+          Sign In
+        </button>
+
+      </form>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <a href="/auth/sign-up">
+          Create an Account
+        </a>
+      </p>
+
+    </section>
+
+  </main>
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
 </html>

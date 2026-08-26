@@ -1,67 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <body>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/partials.css" />
 
-    <h1>Create a New Account</h1>
+  <title>Create Account | Nail Salon</title>
+</head>
 
-    <form action="/auth/sign-up" method="POST">
+<body>
 
-      <label for="name">Name:</label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        required
-      />
+  <%- include('../partials/_navbar.ejs') %>
 
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        required
-      />
+  <main class="auth-page">
 
-      <label for="contact">Contact:</label>
-      <input
-        type="text"
-        name="contact"
-        id="contact"
-        required
-      />
+    <section class="auth-card auth-card-wide">
 
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        required
-      />
+      <p class="auth-label">
+        JOIN US
+      </p>
 
-      <label for="confirmPassword">Confirm Password:</label>
-      <input
-        type="password"
-        name="confirmPassword"
-        id="confirmPassword"
-        required
-      />
+      <h1>
+        Create a<br />
+        New Account
+      </h1>
 
-      <button type="submit">
-        Sign Up
-      </button>
+     
 
-    </form>
+      <form
+        action="/auth/sign-up"
+        method="POST"
+        class="auth-form"
+      >
 
-    <p>
-      Already have an account?
-      <a href="/auth/sign-in">Sign In</a>
-    </p>
+        <div class="auth-field">
+          <label for="name">
+            Name
+          </label>
 
-  </body>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label for="contact">
+            Contact
+          </label>
+
+          <input
+            type="text"
+            name="contact"
+            id="contact"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label for="password">
+            Password
+          </label>
+
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label for="confirmPassword">
+            Confirm Password
+          </label>
+
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="auth-button"
+        >
+          Create Account
+        </button>
+
+      </form>
+
+      <p class="auth-switch">
+        Already have an account?
+        <a href="/auth/sign-in">
+          Sign In
+        </a>
+      </p>
+
+    </section>
+
+  </main>
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
 </html>

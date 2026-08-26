@@ -1,80 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/partials.css" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Edit Appointment | Nail Salon</title>
-  </head>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
 
-    <h1>Edit Appointment</h1>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
 
-    <h2><%= appointment.service.name %></h2>
+  <title>Edit Appointment | Nail Salon</title>
+</head>
 
-    <form
-      action="/appointments/<%= appointment._id %>?_method=PUT"
-      method="POST"
-    >
+<body>
 
-      <label for="appointmentDate">
-        Choose Date:
-      </label>
+  <%- include('../partials/_navbar.ejs') %>
 
-      <input
-        type="date"
-        name="appointmentDate"
-        id="appointmentDate"
-        value="<%= new Date(appointment.appointmentDate).toISOString().split('T')[0] %>"
-        required
-      />
 
-      <br><br>
+  <main class="booking-page">
 
-      <label for="appointmentTime">
-        Choose Time:
-      </label>
+    <div class="booking-layout">
 
-      <input
-        type="time"
-        name="appointmentTime"
-        id="appointmentTime"
-        value="<%= appointment.appointmentTime %>"
-        required
-      />
 
-      <br><br>
+      <!-- IMAGE -->
 
-      <label for="notes">
-        Notes:
-      </label>
+      <div class="booking-image">
 
-      <br>
+        <% let serviceImage = ''; %>
 
-      <textarea
-        name="notes"
-        id="notes"
-      ><%= appointment.notes %></textarea>
+        <% if (appointment.service.name === 'Gel Manicure') { %>
 
-      <br><br>
+          <% serviceImage =
+            '/stylesheets/images/GelManicure.png'; %>
 
-      <button type="submit">
-        Update Appointment
-      </button>
+        <% } else if (
+          appointment.service.name === 'Classic Manicure'
+        ) { %>
 
-    </form>
+          <% serviceImage =
+            '/stylesheets/images/ClassicManicure.png'; %>
 
-    <br>
+        <% } else if (
+          appointment.service.name === 'French Manicure'
+        ) { %>
 
-    <a href="/appointments">
-      Back to My Appointments
-    </a>
+          <% serviceImage =
+            '/stylesheets/images/FrenchManicure.png'; %>
 
-    <%- include('../partials/_footer.ejs') %>
-  </body>
+        <% } else if (
+          appointment.service.name === 'Nail Extensions'
+        ) { %>
+
+          <% serviceImage =
+            '/stylesheets/images/NailExtensions.png'; %>
+
+        <% } %>
+
+
+        <img
+          src="<%= serviceImage %>"
+          alt="<%= appointment.service.name %>"
+        />
+
+      </div>
+
+
+      <!-- CONTENT -->
+
+      <div class="booking-content">
+
+        <p class="section-label">
+          YOUR APPOINTMENT
+        </p>
+
+
+        <h1>
+          Edit your
+          <br />
+          appointment
+        </h1>
+
+
+        <!-- SERVICE -->
+
+        <div class="booking-service">
+
+          <h2>
+            <%= appointment.service.name %>
+          </h2>
+
+          <p>
+            <%= appointment.service.description %>
+          </p>
+
+
+          <div class="booking-service-info">
+
+            <strong>
+              <%= appointment.service.price %> BD
+            </strong>
+
+            <strong>
+              <%= appointment.service.duration %> minutes
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form
+          action="/appointments/<%= appointment._id %>?_method=PUT"
+          method="POST"
+          class="booking-form"
+        >
+
+
+          <!-- DATE -->
+
+          <div class="form-field">
+
+            <label for="appointmentDate">
+              Choose Date
+            </label>
+
+            <input
+              type="date"
+              name="appointmentDate"
+              id="appointmentDate"
+
+              value="<%= new Date(
+                appointment.appointmentDate
+              ).toISOString().split('T')[0] %>"
+
+              required
+            />
+
+          </div>
+
+
+          <!-- TIME -->
+
+          <div class="form-field">
+
+            <label for="appointmentTime">
+              Choose Time
+            </label>
+
+            <input
+              type="time"
+              name="appointmentTime"
+              id="appointmentTime"
+
+              value="<%= appointment.appointmentTime %>"
+
+              required
+            />
+
+          </div>
+
+
+          <!-- NOTES -->
+
+          <div class="form-field">
+
+            <label for="notes">
+              Notes
+            </label>
+
+            <textarea
+              name="notes"
+              id="notes"
+              placeholder="Any special requests?"
+            ><%= appointment.notes || '' %></textarea>
+
+          </div>
+
+
+          <!-- BUTTON -->
+
+          <button
+            type="submit"
+            class="booking-button"
+          >
+            Save Changes
+          </button>
+
+        </form>
+
+
+        <!-- BACK -->
+
+        <a
+          href="/appointments"
+          class="back-services-link"
+        >
+          ← Back to My Appointments
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
 </html>

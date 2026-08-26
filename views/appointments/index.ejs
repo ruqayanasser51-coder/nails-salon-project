@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
 
-  <link
-    rel="stylesheet"
-    href="/stylesheets/style.css"
-  />
-
-  <link
-    rel="stylesheet"
-    href="/stylesheets/partials.css"
-  />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/partials.css" />
 
   <title>My Appointments | Nail Salon</title>
 </head>
@@ -29,7 +20,6 @@
   <main class="appointments-page">
 
     <!-- PAGE HEADER -->
-
     <section class="appointments-header">
 
       <p class="section-label">
@@ -39,12 +29,12 @@
       <h1>
         Your time,
         <br />
-        reserved for you.
+        reserved for you
       </h1>
 
       <p class="appointments-intro">
         Keep track of your upcoming appointments
-        and take a moment for yourself.
+        and take a moment for yourself
       </p>
 
     </section>
@@ -57,12 +47,12 @@
       <section class="no-appointments">
 
         <h2>
-          No appointments yet.
+          No appointments yet
         </h2>
 
         <p>
           Your next little moment of self-care
-          is waiting for you.
+          is waiting for you
         </p>
 
         <a
@@ -106,53 +96,44 @@
               </p>
 
 
-              <!-- DATE / TIME -->
+              <!-- DATE / TIME / STATUS -->
 
               <div class="appointment-details">
 
                 <div>
-
-                  <span>
-                    DATE
-                  </span>
+                  <span>DATE</span>
 
                   <strong>
                     <%= new Date(
                       appointment.appointmentDate
                     ).toLocaleDateString() %>
                   </strong>
-
                 </div>
 
 
                 <div>
-
-                  <span>
-                    TIME
-                  </span>
+                  <span>TIME</span>
 
                   <strong>
-                    <%= appointment.appointmentTime %>
-                  </strong>
-
+  <%= new Date(`1970-01-01T${appointment.appointmentTime}`)
+    .toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit'
+    }) %>
+</strong>
                 </div>
 
 
                 <div>
-
-                  <span>
-                    STATUS
-                  </span>
+                  <span>STATUS</span>
 
                   <strong
-                    class="appointment-status
-                    <%= appointment.status === 'booked'
+                    class="appointment-status <%= appointment.status === 'booked'
                       ? 'status-booked'
                       : 'status-cancelled' %>"
                   >
                     <%= appointment.status %>
                   </strong>
-
                 </div>
 
               </div>
@@ -235,5 +216,4 @@
   <%- include('../partials/_footer.ejs') %>
 
 </body>
-
 </html>

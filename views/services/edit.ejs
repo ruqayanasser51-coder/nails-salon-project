@@ -1,67 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/partials.css" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Edit Service | Nail Salon</title>
-  </head>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
 
-    <h1>Edit Service</h1>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
 
-    <form
-      action="/services/<%= service._id %>?_method=PUT"
-      method="POST"
-    >
+  <title>Edit Service | Nail Salon</title>
+</head>
 
-      <label for="name">Service Name:</label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        value="<%= service.name %>"
-        required
-      />
+<body>
 
-      <label for="description">Description:</label>
-      <textarea
-        name="description"
-        id="description"
-        required
-      ><%= service.description %></textarea>
+  <%- include('../partials/_navbar.ejs') %>
 
-      <label for="price">Price (BD):</label>
-      <input
-        type="number"
-        name="price"
-        id="price"
-        step="0.5"
-        value="<%= service.price %>"
-        required
-      />
 
-      <label for="duration">Duration:</label>
-      <input
-        type="number"
-        name="duration"
-        id="duration"
-        value="<%= service.duration %>"
-        required
-      />
+  <main class="admin-form-page">
 
-      <button type="submit">Update Service</button>
-    </form>
+    <section class="admin-form-header">
 
-    <a href="/services/<%= service._id %>">
-      Cancel
-    </a>
+      <p class="section-label">
+        ADMIN
+      </p>
 
-    <%- include('../partials/_footer.ejs') %>
-  </body>
+      <h1>
+        Edit
+        <br />
+        service
+      </h1>
+
+      <p class="admin-form-intro">
+        Update the details of this nail service.
+      </p>
+
+    </section>
+
+
+    <section class="admin-form-card">
+
+      <form
+        action="/services/<%= service._id %>?_method=PUT"
+        method="POST"
+        class="admin-service-form"
+      >
+
+        <!-- SERVICE NAME -->
+
+        <div class="admin-form-field">
+
+          <label for="name">
+            Service Name
+          </label>
+
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value="<%= service.name %>"
+            required
+          />
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="admin-form-field">
+
+          <label for="description">
+            Description
+          </label>
+
+          <textarea
+            name="description"
+            id="description"
+            required
+          ><%= service.description %></textarea>
+
+        </div>
+
+
+        <!-- PRICE + DURATION -->
+
+        <div class="admin-form-row">
+
+          <div class="admin-form-field">
+
+            <label for="price">
+              Price (BD)
+            </label>
+
+            <input
+              type="number"
+              name="price"
+              id="price"
+              step="0.5"
+              min="0"
+              value="<%= service.price %>"
+              required
+            />
+
+          </div>
+
+
+          <div class="admin-form-field">
+
+            <label for="duration">
+              Duration (minutes)
+            </label>
+
+            <input
+              type="number"
+              name="duration"
+              id="duration"
+              min="1"
+              value="<%= service.duration %>"
+              required
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- BUTTON -->
+
+        <button
+          type="submit"
+          class="admin-form-button"
+        >
+          Update Service
+        </button>
+
+      </form>
+
+
+      <!-- CANCEL -->
+
+      <a
+        href="/services/<%= service._id %>"
+        class="admin-back-link"
+      >
+        ← Cancel
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
 </html>

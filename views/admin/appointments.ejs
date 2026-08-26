@@ -1,72 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/partials.css" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Admin Appointments | Nail Salon</title>
-  </head>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
 
-    <h1>All Appointments</h1>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
+
+  <title>Admin Appointments | Nail Salon</title>
+</head>
+
+<body>
+
+  <%- include('../partials/_navbar.ejs') %>
+
+
+  <main class="admin-appointments-page">
+
+    <!-- HEADER -->
+
+    <section class="admin-appointments-header">
+
+      <p class="section-label">
+        ADMIN
+      </p>
+
+      <h1>
+        All
+        <br />
+        appointments.
+      </h1>
+
+      <p class="admin-appointments-intro">
+        View and keep track of all customer appointments
+        and their current status
+      </p>
+
+    </section>
+
+
+    <!-- APPOINTMENTS -->
 
     <% if (appointments.length === 0) { %>
 
-      <p>No appointments available.</p>
+      <section class="admin-no-appointments">
+
+        <h2>
+          No appointments yet
+        </h2>
+
+        <p>
+          There are currently no appointments to display
+        </p>
+
+        <a href="/services">
+          View Services →
+        </a>
+
+      </section>
 
     <% } else { %>
 
-      <% appointments.forEach((appointment) => { %>
+      <section class="admin-appointments-list">
 
-        <div>
-          <h2>
-            <%= appointment.service.name %>
-          </h2>
+        <% appointments.forEach((appointment, index) => { %>
 
-          <p>
-            Customer:
-            <%= appointment.user.username %>
-          </p>
+          <%
+            const appointmentDate =
+              new Date(appointment.appointmentDate);
 
-          <p>
-            Date:
-            <%= new Date(appointment.appointmentDate).toLocaleDateString() %>
-          </p>
+            const formattedTime =
+              new Date(
+                `1970-01-01T${appointment.appointmentTime}`
+              ).toLocaleTimeString(
+                'en-US',
+                {
+                  hour: 'numeric',
+                  minute: '2-digit'
+                }
+              );
+          %>
 
-          <p>
-            Time:
-            <%= appointment.appointmentTime %>
-          </p>
 
-          <p>
-            Status:
-            <%= appointment.status %>
-          </p>
+          <article class="admin-appointment-card">
 
-          <% if (appointment.notes) { %>
-            <p>
-              Notes:
-              <%= appointment.notes %>
-            </p>
-          <% } %>
+            <!-- NUMBER -->
 
-          <hr />
+            <div class="admin-appointment-number">
 
-        </div>
+              <%= String(index + 1).padStart(2, '0') %>
 
-      <% }) %>
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="admin-appointment-content">
+
+              <p class="admin-appointment-label">
+                NAIL SERVICE
+              </p>
+
+
+              <h2>
+                <%= appointment.service.name %>
+              </h2>
+
+
+              <!-- CUSTOMER -->
+
+              <div class="admin-customer">
+
+                <span>
+                  CUSTOMER
+                </span>
+
+                <strong>
+                  <%= appointment.user.name ||
+                      appointment.user.username ||
+                      appointment.user.email %>
+                </strong>
+
+              </div>
+
+
+              <!-- DETAILS -->
+
+              <div class="admin-appointment-details">
+
+                <div>
+
+                  <span>
+                    DATE
+                  </span>
+
+                  <strong>
+                    <%= appointmentDate.toLocaleDateString() %>
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    TIME
+                  </span>
+
+                  <strong>
+                    <%= formattedTime %>
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    STATUS
+                  </span>
+
+                  <strong
+                    class="admin-status
+                    <%= appointment.status === 'booked'
+                      ? 'admin-status-booked'
+                      : 'admin-status-cancelled' %>"
+                  >
+                    <%= appointment.status %>
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- NOTES -->
+
+              <% if (appointment.notes) { %>
+
+                <div class="admin-appointment-notes">
+
+                  <span>
+                    NOTES
+                  </span>
+
+                  <p>
+                    <%= appointment.notes %>
+                  </p>
+
+                </div>
+
+              <% } %>
+
+            </div>
+
+          </article>
+
+        <% }) %>
+
+      </section>
 
     <% } %>
 
-    <a href="/services">
-      View Services
-    </a>
 
-    <%- include('../partials/_footer.ejs') %>
-  </body>
+    <!-- BOTTOM -->
+
+    <section class="admin-appointments-cta">
+
+      <p>
+        NEED TO MANAGE SERVICES?
+      </p>
+
+      <a href="/services">
+        View Services →
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
 </html>

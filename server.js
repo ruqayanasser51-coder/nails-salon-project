@@ -146,25 +146,30 @@ app.delete('/services/:id', async (req, res) => {
 app.use(isSignedIn);
 
 
-// Book appointment page
+// =========================================
+// BOOK APPOINTMENT PAGE
+// =========================================
+
 app.get(
   '/appointments/new/:serviceId',
   async (req, res) => {
-
     const service = await Service.findById(
       req.params.serviceId
     );
 
     res.render('appointments/new.ejs', {
       service,
+      error: null,
     });
   }
 );
 
 
-// Create appointment
-app.post('/appointments', async (req, res) => {
+// =========================================
+// CREATE APPOINTMENT
+// =========================================
 
+app.post('/appointments', async (req, res) => {
   const {
     serviceId,
     appointmentDate,
@@ -173,8 +178,7 @@ app.post('/appointments', async (req, res) => {
   } = req.body;
 
 
-  // Check if date + time already booked
-
+  // Check if the date and time are already booked
   const existingAppointment =
     await Appointment.findOne({
       appointmentDate,
@@ -183,67 +187,75 @@ app.post('/appointments', async (req, res) => {
     });
 
 
+  // If already booked, stay on booking page
   if (existingAppointment) {
+    const service = await Service.findById(
+      serviceId
+    );
 
-    return res.send(
-      'This date and time is already booked. Please choose another time.'
+    return res.status(409).render(
+      'appointments/new.ejs',
+      {
+        service,
+        error:
+          'This date and time is already booked. Please choose another time.',
+      }
     );
   }
 
 
+  // Create appointment
   await Appointment.create({
-
     user: req.session.user._id,
-
     service: serviceId,
-
     appointmentDate,
-
     appointmentTime,
-
     notes,
-
     status: 'booked',
   });
 
 
+  // Go to My Appointments
   res.redirect('/appointments');
 });
 
 
-// My appointments
-app.get('/appointments', async (req, res) => {
+// =========================================
+// MY APPOINTMENTS
+// =========================================
 
+app.get('/appointments', async (req, res) => {
   const appointments =
     await Appointment.find({
       user: req.session.user._id,
-    })
-    .populate('service');
+    }).populate('service');
 
 
-  res.render('appointments/index.ejs', {
-    appointments,
-  });
+  res.render(
+    'appointments/index.ejs',
+    {
+      appointments,
+    }
+  );
 });
 
 
-// Edit appointment page
+// =========================================
+// EDIT APPOINTMENT PAGE
+// =========================================
+
 app.get(
   '/appointments/:id/edit',
   async (req, res) => {
 
     const appointment =
       await Appointment.findOne({
-
         _id: req.params.id,
-
         user: req.session.user._id,
-
       }).populate('service');
 
 
     if (!appointment) {
-
       return res.send(
         'Appointment not found.'
       );
@@ -260,7 +272,10 @@ app.get(
 );
 
 
-// Update appointment
+// =========================================
+// UPDATE APPOINTMENT
+// =========================================
+
 app.put(
   '/appointments/:id',
   async (req, res) => {
@@ -272,24 +287,20 @@ app.put(
     } = req.body;
 
 
+    // Check if another appointment
+    // already uses this date and time
     const existingAppointment =
       await Appointment.findOne({
-
         appointmentDate,
-
         appointmentTime,
-
         status: 'booked',
-
         _id: {
           $ne: req.params.id,
         },
-
       });
 
 
     if (existingAppointment) {
-
       return res.send(
         'This date and time is already booked. Please choose another time.'
       );
@@ -297,18 +308,13 @@ app.put(
 
 
     await Appointment.findOneAndUpdate(
-
       {
         _id: req.params.id,
-
         user: req.session.user._id,
       },
-
       {
         appointmentDate,
-
         appointmentTime,
-
         notes,
       }
     );
@@ -319,19 +325,19 @@ app.put(
 );
 
 
-// Cancel appointment
+// =========================================
+// CANCEL APPOINTMENT
+// =========================================
+
 app.delete(
   '/appointments/:id',
   async (req, res) => {
 
     await Appointment.findOneAndUpdate(
-
       {
         _id: req.params.id,
-
         user: req.session.user._id,
       },
-
       {
         status: 'cancelled',
       }
@@ -408,9 +414,8 @@ app.get(
 // =========================================
 
 app.listen(port, () => {
-
   console.log(
     `The express app is ready on port ${port}!`
   );
-
 });
+

@@ -26,175 +26,159 @@
 
   <%- include('../partials/_navbar.ejs') %>
 
-  <main class="booking-page">
+<main class="booking-page">
 
-    <section class="booking-layout">
+  <div class="booking-layout">
 
-      <!-- SERVICE IMAGE -->
+    <div class="booking-image">
 
-      <div class="booking-image">
+      <% let serviceImage = ''; %>
 
-        <% if (service.name === 'Gel Manicure') { %>
+      <% if (service.name === 'Gel Manicure') { %>
+        <% serviceImage = '/stylesheets/images/GelManicure.png'; %>
 
-          <img
-            src="/stylesheets/images/GelManicure.png"
-            alt="Gel Manicure"
-          />
+      <% } else if (service.name === 'Classic Manicure') { %>
+        <% serviceImage = '/stylesheets/images/ClassicManicure.png'; %>
 
-        <% } else if (service.name === 'Classic Manicure') { %>
+      <% } else if (service.name === 'French Manicure') { %>
+        <% serviceImage = '/stylesheets/images/FrenchManicure.png'; %>
 
-          <img
-            src="/stylesheets/images/ClassicManicure.png"
-            alt="Classic Manicure"
-          />
+      <% } else if (service.name === 'Nail Extensions') { %>
+        <% serviceImage = '/stylesheets/images/NailExtensions.png'; %>
+      <% } %>
 
-        <% } else if (service.name === 'French Manicure') { %>
+      <img
+        src="<%= serviceImage %>"
+        alt="<%= service.name %>"
+      />
 
-          <img
-            src="/stylesheets/images/FrenchManicure.png"
-            alt="French Manicure"
-          />
+    </div>
 
-        <% } else if (service.name === 'Nail Extensions') { %>
 
-          <img
-            src="/stylesheets/images/NailExtensions.png"
-            alt="Nail Extensions"
-          />
+    <div class="booking-content">
 
-        <% } %>
+      <p class="section-label">
+        YOUR APPOINTMENT
+      </p>
+
+      <h1>
+        Book your
+        <br />
+        appointment.
+      </h1>
+
+      <div class="booking-service">
+
+        <h2>
+          <%= service.name %>
+        </h2>
+
+        <p>
+          Description:
+          <%= service.description %>
+        </p>
+
+        <div class="booking-service-info">
+
+          <strong>
+            <%= service.price %> BD
+          </strong>
+
+          <strong>
+            <%= service.duration %> minutes
+          </strong>
+
+        </div>
 
       </div>
 
+      <% if (error) { %>
 
-      <!-- BOOKING FORM -->
+  <div class="booking-error">
+    <%= error %>
+  </div>
 
-      <div class="booking-content">
+<% } %>
+      <form
+        action="/appointments"
+        method="POST"
+        class="booking-form"
+      >
 
-        <p class="section-label">
-          YOUR APPOINTMENT
-        </p>
+        <input
+          type="hidden"
+          name="serviceId"
+          value="<%= service._id %>"
+        />
 
-        <h1>
-          Book your
-          <br />
-          appointment.
-        </h1>
+        <div class="form-field">
 
-        <div class="booking-service">
+          <label for="appointmentDate">
+            Choose Date
+          </label>
 
-          <h2>
-            <%= service.name %>
-          </h2>
-
-          <p>
-            <%= service.description %>
-          </p>
-
-          <div class="booking-service-info">
-
-            <span>
-              <%= service.price %> BD
-            </span>
-
-            <span>
-              <%= service.duration %> minutes
-            </span>
-
-          </div>
+          <input
+            type="date"
+            name="appointmentDate"
+            id="appointmentDate"
+            required
+          />
 
         </div>
 
 
-        <form
-          action="/appointments"
-          method="POST"
-          class="booking-form"
-        >
+        <div class="form-field">
+
+          <label for="appointmentTime">
+            Choose Time
+          </label>
 
           <input
-            type="hidden"
-            name="serviceId"
-            value="<%= service._id %>"
+            type="time"
+            name="appointmentTime"
+            id="appointmentTime"
+            required
           />
 
-
-          <!-- DATE -->
-
-          <div class="form-field">
-
-            <label for="appointmentDate">
-              Choose Date
-            </label>
-
-            <input
-              type="date"
-              name="appointmentDate"
-              id="appointmentDate"
-              required
-            />
-
-          </div>
+        </div>
 
 
-          <!-- TIME -->
+        <div class="form-field">
 
-          <div class="form-field">
+          <label for="notes">
+            Notes
+          </label>
 
-            <label for="appointmentTime">
-              Choose Time
-            </label>
+          <textarea
+            name="notes"
+            id="notes"
+            placeholder="Any special requests?"
+          ></textarea>
 
-            <input
-              type="time"
-              name="appointmentTime"
-              id="appointmentTime"
-              required
-            />
-
-          </div>
+        </div>
 
 
-          <!-- NOTES -->
-
-          <div class="form-field">
-
-            <label for="notes">
-              Notes
-            </label>
-
-            <textarea
-              name="notes"
-              id="notes"
-              placeholder="Any special requests?"
-              rows="4"
-            ></textarea>
-
-          </div>
-
-
-          <button
-            type="submit"
-            class="booking-button"
-          >
-            Confirm Appointment
-          </button>
-
-        </form>
-
-
-        <a
-          href="/services"
-          class="back-services-link"
+        <button
+          type="submit"
+          class="booking-button"
         >
-          ← Back to Services
-        </a>
+          Confirm Appointment
+        </button>
 
-      </div>
+      </form>
 
-    </section>
+      <a
+        href="/services"
+        class="back-services-link"
+      >
+        ← Back to Services
+      </a>
 
-  </main>
+    </div>
+
+  </div>
+
+</main>
 
 
   <%- include('../partials/_footer.ejs') %>

@@ -1,103 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
 
-    <link
-      rel="stylesheet"
-      href="/stylesheets/style.css"
-    />
+<head>
+  <meta charset="UTF-8" />
 
-    <link
-      rel="stylesheet"
-      href="/stylesheets/partials.css"
-    />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-    <title>Notifications | Nail Salon</title>
-  </head>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
 
-  <body>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
 
-    <%- include('../partials/_navbar.ejs') %>
+  <title>Notifications | Nail Salon</title>
+</head>
 
-    <h1>Notifications</h1>
+<body>
+
+  <%- include('../partials/_navbar.ejs') %>
+
+
+  <main class="notifications-page">
+
+    <!-- PAGE HEADER -->
+
+    <section class="notifications-header">
+
+      <p class="section-label">
+        STAY UP TO DATE
+      </p>
+
+      <h1>
+        Your
+        <br />
+        notifications.
+      </h1>
+
+      <p class="notifications-intro">
+        Keep an eye on your upcoming appointments
+        and never miss your little moment of self-care.
+      </p>
+
+    </section>
+
+
+    <!-- NOTIFICATIONS -->
 
     <% if (appointments.length === 0) { %>
 
-    <%
-  const appointmentDate = new Date(appointment.appointmentDate);
+      <section class="no-notifications">
 
-  const today = new Date();
+        <div class="notification-icon">
+          ✓
+        </div>
 
-  const differenceInTime =
-    appointmentDate.getTime() - today.getTime();
+        <h2>
+          You're all caught up.
+        </h2>
 
-  const differenceInDays =
-    Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
-%>
+        <p>
+          You don't have any upcoming appointments.
+        </p>
 
-<% if (differenceInDays <= 0) { %>
+        <a
+          href="/services"
+          class="notifications-button"
+        >
+          Book an Appointment
+        </a>
 
-  <p>
-    🔔 Your appointment is today!
-  </p>
-
-<% } else if (differenceInDays === 1) { %>
-
-  <p>
-    🔔 Your appointment is tomorrow!
-  </p>
-
-<% } else { %>
-
-  <p>
-    🔔 Your appointment is in
-    <%= differenceInDays %> days!
-  </p>
-
-<% } %>
+      </section>
 
     <% } else { %>
 
-      <% appointments.forEach(appointment => { %>
+      <section class="notifications-list">
 
-        <div class="notification">
+        <% appointments.forEach((appointment, index) => { %>
 
-          <h2>
-            Upcoming Appointment
-          </h2>
+          <%
+            const appointmentDate =
+              new Date(appointment.appointmentDate);
 
-          <p>
-            <strong>
-              <%= appointment.service.name %>
-            </strong>
-          </p>
+            const today = new Date();
 
-          <p>
-            Date:
-            <%= new Date(appointment.appointmentDate).toLocaleDateString() %>
-          </p>
+            const differenceInTime =
+              appointmentDate.getTime() -
+              today.getTime();
 
-          <p>
-            Time:
-            <%= appointment.appointmentTime %>
-          </p>
+            const differenceInDays =
+              Math.ceil(
+                differenceInTime /
+                (1000 * 60 * 60 * 24)
+              );
+          %>
 
-          <p>
-            Your appointment is coming up!
-          </p>
 
-        </div>
+          <article class="notification-card">
 
-      <% }) %>
+            <!-- NUMBER -->
+
+            <div class="notification-number">
+
+              <%= String(index + 1).padStart(2, '0') %>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="notification-content">
+
+              <p class="notification-label">
+                UPCOMING APPOINTMENT
+              </p>
+
+
+              <h2>
+                <%= appointment.service.name %>
+              </h2>
+
+
+              <!-- REMINDER -->
+
+              <div class="notification-message">
+
+                <% if (differenceInDays <= 0) { %>
+
+                  <strong>
+                    Your appointment is today!
+                  </strong>
+
+                <% } else if (differenceInDays === 1) { %>
+
+                  <strong>
+                    Your appointment is tomorrow!
+                  </strong>
+
+                <% } else { %>
+
+                  <strong>
+                    Your appointment is in
+                    <%= differenceInDays %>
+                    days!
+                  </strong>
+
+                <% } %>
+
+              </div>
+
+
+              <!-- DETAILS -->
+
+              <div class="notification-details">
+
+                <div>
+
+                  <span>
+                    DATE
+                  </span>
+
+                  <strong>
+                    <%= appointmentDate.toLocaleDateString() %>
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    TIME
+                  </span>
+
+                  <strong>
+
+                    <%= new Date(
+                      `1970-01-01T${appointment.appointmentTime}`
+                    ).toLocaleTimeString(
+                      'en-US',
+                      {
+                        hour: 'numeric',
+                        minute: '2-digit'
+                      }
+                    ) %>
+
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- LINK -->
+
+              <a
+                href="/appointments"
+                class="notification-link"
+              >
+                View My Appointments →
+              </a>
+
+            </div>
+
+          </article>
+
+        <% }) %>
+
+      </section>
 
     <% } %>
 
-    <%- include('../partials/_footer.ejs') %>
 
-  </body>
+    <!-- BOTTOM CTA -->
+
+    <section class="notifications-cta">
+
+      <p>
+        NEED TO MAKE A CHANGE?
+      </p>
+
+      <a href="/appointments">
+        View My Appointments →
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
 </html>

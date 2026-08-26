@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8" />
 
   <meta
@@ -19,16 +20,22 @@
     href="/stylesheets/partials.css"
   />
 
-  <title>Our Services | Nail Salon</title>
+  <title>Services | Nail Salon</title>
+
 </head>
+
 
 <body>
 
   <%- include('../partials/_navbar.ejs') %>
 
+
   <main class="services-page">
 
-    <!-- SERVICES HEADER -->
+
+    <!-- =========================================
+         SERVICES HERO
+         ========================================= -->
 
     <section class="services-hero">
 
@@ -39,7 +46,7 @@
       <h1>
         Nails made
         <br />
-        for you.
+        for you
       </h1>
 
       <p class="services-intro">
@@ -50,7 +57,9 @@
     </section>
 
 
-    <!-- ADMIN ACTION -->
+    <!-- =========================================
+         ADMIN BUTTON
+         ========================================= -->
 
     <% if (user && user.role === 'admin') { %>
 
@@ -60,7 +69,7 @@
           href="/services/new"
           class="service-admin-button"
         >
-          + Add Service
+          Add New Service
         </a>
 
       </div>
@@ -68,70 +77,100 @@
     <% } %>
 
 
-    <!-- SERVICES -->
+    <!-- =========================================
+         SERVICES GRID
+         ========================================= -->
 
-    <section class="services-grid">
+    <% if (services.length === 0) { %>
 
-      <% if (services.length === 0) { %>
+      <p class="no-services">
+        No services available at the moment.
+      </p>
 
-        <p class="no-services">
-          No services available at the moment.
-        </p>
+    <% } else { %>
 
-      <% } else { %>
 
-        <% services.forEach(service => { %>
+      <section class="services-grid">
+
+
+        <% services.forEach((service, index) => { %>
+
 
           <article class="service-card">
 
+
+            <!-- IMAGE -->
+
             <div class="service-image">
 
-              <% if (service.name === 'Gel Manicure') { %>
+              <%
+                let serviceImage =
+                  '/stylesheets/images/hero-nails (2).jpg';
 
-                <img
-                  src="/stylesheets/images/GelManicure.png"
-                  alt="Gel Manicure"
-                />
+                if (
+                  service.name === 'Classic Manicure'
+                ) {
 
-              <% } else if (service.name === 'Classic Manicure') { %>
+                  serviceImage =
+                    '/stylesheets/images/ClassicManicure.png';
 
-                <img
-                  src="/stylesheets/images/ClassicManicure.png"
-                  alt="Classic Manicure"
-                />
+                } else if (
+                  service.name === 'French Manicure'
+                ) {
 
-              <% } else if (service.name === 'French Manicure') { %>
+                  serviceImage =
+                    '/stylesheets/images/FrenchManicure.png';
 
-                <img
-                  src="/stylesheets/images/FrenchManicure.png"
-                  alt="French Manicure"
-                />
+                } else if (
+                  service.name === 'Gel Manicure'
+                ) {
 
-              <% } else if (service.name === 'Nail Extensions') { %>
+                  serviceImage =
+                    '/stylesheets/images/GelManicure.png';
 
-                <img
-                  src="/stylesheets/images/NailExtensions.png"
-                  alt="Nail Extensions"
-                />
+                } else if (
+                  service.name === 'Nail Extensions'
+                ) {
 
-              <% } %>
+                  serviceImage =
+                    '/stylesheets/images/NailExtensions.png';
+
+                }
+              %>
+
+
+              <img
+                src="<%= serviceImage %>"
+                alt="<%= service.name %>"
+              />
 
             </div>
 
 
+            <!-- CONTENT -->
+
             <div class="service-card-content">
 
+
+              <!-- NUMBER -->
+
               <p class="service-number">
-                0<%= services.indexOf(service) + 1 %>
+
+                <%= String(index + 1).padStart(2, '0') %>
+
               </p>
+
+
+              <!-- SERVICE NAME -->
 
               <h2>
+
                 <%= service.name %>
+
               </h2>
 
-              <p class="service-description">
-                <%= service.description %>
-              </p>
+
+              <!-- PRICE + DURATION -->
 
               <div class="service-info">
 
@@ -145,52 +184,61 @@
 
               </div>
 
+
+              <!-- VIEW DETAILS -->
+
               <a
                 href="/services/<%= service._id %>"
                 class="service-details-link"
               >
-                View Details
-                <span>→</span>
+
+                <span>
+                  View Details
+                </span>
+
+                <span>
+                  →
+                </span>
+
               </a>
+
 
             </div>
 
+
           </article>
+
 
         <% }) %>
 
-      <% } %>
 
-    </section>
+      </section>
 
 
-    <!-- CTA -->
+    <% } %>
+
+
+    <!-- =========================================
+         BOTTOM CTA
+         ========================================= -->
 
     <section class="services-cta">
 
-      <p class="section-label">
-        READY WHEN YOU ARE
-      </p>
-
       <h2>
-        Your next
+        A little time
         <br />
-        appointment awaits.
+        just for you
       </h2>
 
-      <a
-        href="/services"
-        class="hero-button"
-      >
-        Book an Appointment
-      </a>
-
+     
     </section>
+
 
   </main>
 
 
   <%- include('../partials/_footer.ejs') %>
+
 
 </body>
 

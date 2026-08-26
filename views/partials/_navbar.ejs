@@ -1,160 +1,250 @@
 <nav id="navbar">
 
-  <% if (user) { %>
+  <div class="nav-left">
 
-    <a class="nav-link" href="/auth/sign-out">Sign Out</a>
+    <a class="nav-brand" href="/">
+      Nail Salon
+    </a>
 
-    <a class="nav-link" href="/services">Services</a>
+  </div>
 
-    <a class="nav-link" href="/appointments">My Appointments</a>
 
-    <% if (user.role === 'customer') { %>
-    <!-- Notification Bell -->
-    <div class="notification-wrapper">
+  <div class="nav-right">
 
-      <button
-        type="button"
-        class="notification-bell"
-        id="notificationBell"
-      >
-        🔔
+    <% if (user) { %>
 
-        <% if (notificationCount > 0) { %>
-          <span class="notification-count">
-            <%= notificationCount %>
-          </span>
-        <% } %>
-      </button>
+      <a class="nav-link" href="/services">
+        Services
+      </a>
 
-      <% if (notificationCount > 0) { %>
 
-        <div
-          class="notification-dropdown"
-          id="notificationDropdown"
-        >
+      <% if (user.role === 'customer') { %>
 
-          <h3>Upcoming Appointments</h3>
+        <a class="nav-link" href="/appointments">
+          My Appointments
+        </a>
 
-          <% upcomingAppointments.forEach(appointment => { %>
 
-            <%
-              const appointmentDate = new Date(
-                appointment.appointmentDate
-              );
+        <!-- NOTIFICATIONS -->
 
-              const today = new Date();
+        <div class="notification-wrapper">
 
-              appointmentDate.setHours(0, 0, 0, 0);
-              today.setHours(0, 0, 0, 0);
+          <button
+            type="button"
+            class="notification-bell"
+            id="notificationBell"
+            aria-label="Notifications"
+          >
+            🔔
 
-              const differenceInTime =
-                appointmentDate.getTime() -
-                today.getTime();
+            <% if (notificationCount > 0) { %>
 
-              const differenceInDays =
-                Math.round(
-                  differenceInTime /
-                  (1000 * 60 * 60 * 24)
-                );
-            %>
+              <span class="notification-count">
+                <%= notificationCount %>
+              </span>
 
-            <div class="notification-item">
+            <% } %>
 
-              <strong>
-                <%= appointment.service.name %>
-              </strong>
+          </button>
 
-              <p>
-                Date:
-                <%= appointmentDate.toLocaleDateString() %>
-              </p>
 
-              <p>
-                Time:
-                <%= appointment.appointmentTime %>
-              </p>
+          <% if (notificationCount > 0) { %>
 
-              <% if (differenceInDays === 0) { %>
+            <div
+              class="notification-dropdown"
+              id="notificationDropdown"
+            >
 
-                <p>
-                  🔔 Your appointment is today!
-                </p>
+              <h3>
+                Upcoming Appointments
+              </h3>
 
-              <% } else if (differenceInDays === 1) { %>
 
-                <p>
-                  🔔 Your appointment is tomorrow!
-                </p>
+              <% upcomingAppointments.forEach(appointment => { %>
 
-              <% } else { %>
+                <div class="notification-item">
 
-                <p>
-                  🔔 Your appointment is in
-                  <%= differenceInDays %> days!
-                </p>
+                  <strong>
+                    <%= appointment.service.name %>
+                  </strong>
 
-              <% } %>
+
+                  <p>
+                    Date:
+                    <%= new Date(
+                      appointment.appointmentDate
+                    ).toLocaleDateString() %>
+                  </p>
+
+
+                  <p>
+                    Time:
+
+                    <%= new Date(
+                      `1970-01-01T${appointment.appointmentTime}`
+                    ).toLocaleTimeString(
+                      'en-US',
+                      {
+                        hour: 'numeric',
+                        minute: '2-digit'
+                      }
+                    ) %>
+                  </p>
+
+
+                  <%
+                    const appointmentDate =
+                      new Date(
+                        appointment.appointmentDate
+                      );
+
+                    const today =
+                      new Date();
+
+                    appointmentDate.setHours(
+                      0, 0, 0, 0
+                    );
+
+                    today.setHours(
+                      0, 0, 0, 0
+                    );
+
+                    const differenceInTime =
+                      appointmentDate.getTime() -
+                      today.getTime();
+
+                    const differenceInDays =
+                      Math.round(
+                        differenceInTime /
+                        (1000 * 60 * 60 * 24)
+                      );
+                  %>
+
+
+                  <% if (differenceInDays === 0) { %>
+
+                    <p>
+                      🔔 Your appointment is today!
+                    </p>
+
+                  <% } else if (differenceInDays === 1) { %>
+
+                    <p>
+                      🔔 Your appointment is tomorrow!
+                    </p>
+
+                  <% } else { %>
+
+                    <p>
+                      🔔 Your appointment is in
+                      <%= differenceInDays %>
+                      days!
+                    </p>
+
+                  <% } %>
+
+                </div>
+
+              <% }) %>
+
+
+              <a
+                href="/notifications"
+                class="notification-view-all"
+              >
+                View All Notifications →
+              </a>
 
             </div>
 
-          <% }) %>
-
-          <a href="/notifications">
-            View All Notifications
-          </a>
+          <% } %>
 
         </div>
 
       <% } %>
 
-    </div>
-    <% } %>
 
-    <% if (user.role === 'admin') { %>
+      <% if (user.role === 'admin') { %>
+
+        <a
+          class="nav-link"
+          href="/services/new"
+        >
+          Add Service
+        </a>
+
+
+        <a
+          class="nav-link"
+          href="/admin/appointments"
+        >
+          All Appointments
+        </a>
+
+      <% } %>
+
+
+      <a
+        class="nav-link nav-signout"
+        href="/auth/sign-out"
+      >
+        Sign Out
+      </a>
+
+
+    <% } else { %>
 
       <a
         class="nav-link"
-        href="/services/new"
+        href="/auth/sign-up"
       >
-        Add Service
+        Sign Up
       </a>
+
 
       <a
         class="nav-link"
-        href="/admin/appointments"
+        href="/auth/sign-in"
       >
-        All Appointments
+        Sign In
       </a>
 
     <% } %>
 
-  <% } else { %>
-
-    <a class="nav-link" href="/auth/sign-up">
-      Sign Up
-    </a>
-
-    <a class="nav-link" href="/auth/sign-in">
-      Sign In
-    </a>
-
-  <% } %>
+  </div>
 
 </nav>
 
 
 <script>
+
   const notificationBell =
-    document.getElementById('notificationBell');
+    document.getElementById(
+      'notificationBell'
+    );
 
   const notificationDropdown =
-    document.getElementById('notificationDropdown');
+    document.getElementById(
+      'notificationDropdown'
+    );
 
-  if (notificationBell && notificationDropdown) {
 
-    notificationBell.addEventListener('click', () => {
-      notificationDropdown.classList.toggle('show');
-    });
+  if (
+    notificationBell &&
+    notificationDropdown
+  ) {
+
+    notificationBell.addEventListener(
+      'click',
+      () => {
+
+        notificationDropdown.classList.toggle(
+          'show'
+        );
+
+      }
+    );
 
   }
+
 </script>

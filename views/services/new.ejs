@@ -1,59 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/partials.css" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Add Service | Nail Salon</title>
-  </head>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
 
-    <h1>Add a New Nail Service</h1>
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
 
-    <form action="/services" method="POST">
+  <title>Add Service | Nail Salon</title>
+</head>
 
-      <label for="name">Service Name:</label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        required
-      />
+<body>
 
-      <label for="description">Description:</label>
-      <textarea
-        name="description"
-        id="description"
-        required
-      ></textarea>
+  <%- include('../partials/_navbar.ejs') %>
 
-      <label for="price">Price (BD):</label>
-      <input
-        type="number"
-        name="price"
-        id="price"
-        step="0.5"
-        required
-      />
 
-      <label for="duration">Duration:</label>
-      <input
-        type="number"
-        name="duration"
-        id="duration"
-        required
-      />
+  <main class="admin-form-page">
 
-      <button type="submit">Add Service</button>
-    </form>
+    <section class="admin-form-header">
 
-    <a href="/services">Back to Services</a>
+      <p class="section-label">
+        ADMIN
+      </p>
 
-    <%- include('../partials/_footer.ejs') %>
-  </body>
+      <h1>
+        Add a new
+        <br />
+        nail service
+      </h1>
+
+      <p class="admin-form-intro">
+        Create a new service and add it to your
+        salon's service collection
+      </p>
+
+    </section>
+
+
+    <section class="admin-form-card">
+
+      <form
+        action="/services"
+        method="POST"
+        class="admin-service-form"
+      >
+
+        <div class="admin-form-field">
+
+          <label for="name">
+            Service Name
+          </label>
+
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="e.g. Gel Manicure"
+            required
+          />
+
+        </div>
+
+
+        <div class="admin-form-field">
+
+          <label for="description">
+            Description
+          </label>
+
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Describe the service..."
+            required
+          ></textarea>
+
+        </div>
+
+
+        <div class="admin-form-row">
+
+          <div class="admin-form-field">
+
+            <label for="price">
+              Price (BD)
+            </label>
+
+            <input
+              type="number"
+              name="price"
+              id="price"
+              step="0.5"
+              min="0"
+              placeholder="12.5"
+              required
+            />
+
+          </div>
+
+
+          <div class="admin-form-field">
+
+            <label for="duration">
+              Duration (minutes)
+            </label>
+
+            <input
+              type="number"
+              name="duration"
+              id="duration"
+              min="1"
+              placeholder="60"
+              required
+            />
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="admin-form-button"
+        >
+          Add Service
+        </button>
+
+      </form>
+
+
+      <a
+        href="/services"
+        class="admin-back-link"
+      >
+        ← Back to Services
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
 </html>
