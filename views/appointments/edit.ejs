@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+
+    <title>Edit Appointment | Nail Salon</title>
+  </head>
+
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Edit Appointment</h1>
+
+    <h2><%= appointment.service.name %></h2>
+
+    <form
+      action="/appointments/<%= appointment._id %>?_method=PUT"
+      method="POST"
+    >
+
+      <label for="appointmentDate">
+        Choose Date:
+      </label>
+
+      <input
+        type="date"
+        name="appointmentDate"
+        id="appointmentDate"
+        value="<%= new Date(appointment.appointmentDate).toISOString().split('T')[0] %>"
+        required
+      />
+
+      <br><br>
+
+      <label for="appointmentTime">
+        Choose Time:
+      </label>
+
+      <input
+        type="time"
+        name="appointmentTime"
+        id="appointmentTime"
+        value="<%= appointment.appointmentTime %>"
+        required
+      />
+
+      <br><br>
+
+      <label for="notes">
+        Notes:
+      </label>
+
+      <br>
+
+      <textarea
+        name="notes"
+        id="notes"
+      ><%= appointment.notes %></textarea>
+
+      <br><br>
+
+      <button type="submit">
+        Update Appointment
+      </button>
+
+    </form>
+
+    <br>
+
+    <a href="/appointments">
+      Back to My Appointments
+    </a>
+
+    <%- include('../partials/_footer.ejs') %>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
+
+  <title><%= service.name %> | Nail Salon</title>
+</head>
+
+<body>
+
+  <%- include('../partials/_navbar.ejs') %>
+
+  <main class="service-details-page">
+
+    <section class="service-details">
+
+      <!-- SERVICE IMAGE -->
+
+      <div class="service-details-image">
+
+        <% if (service.name === 'Gel Manicure') { %>
+
+          <img
+            src="/stylesheets/images/GelManicure.png"
+            alt="Gel Manicure"
+          />
+
+        <% } else if (service.name === 'Classic Manicure') { %>
+
+          <img
+            src="/stylesheets/images/ClassicManicure.png"
+            alt="Classic Manicure"
+          />
+
+        <% } else if (service.name === 'French Manicure') { %>
+
+          <img
+            src="/stylesheets/images/FrenchManicure.png"
+            alt="French Manicure"
+          />
+
+        <% } else if (service.name === 'Nail Extensions') { %>
+
+          <img
+            src="/stylesheets/images/NailExtensions.png"
+            alt="Nail Extensions"
+          />
+
+        <% } %>
+
+      </div>
+
+
+      <!-- SERVICE CONTENT -->
+
+      <div class="service-details-content">
+
+        <p class="section-label">
+          NAIL SERVICE
+        </p>
+
+        <h1>
+          <%= service.name %>
+        </h1>
+
+        <p class="service-details-description">
+          <%= service.description %>
+        </p>
+
+
+        <div class="service-details-info">
+
+          <div>
+
+            <span>
+              PRICE
+            </span>
+
+            <strong>
+              <%= service.price %> BD
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              DURATION
+            </span>
+
+            <strong>
+              <%= service.duration %> minutes
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <a
+          href="/appointments/new/<%= service._id %>"
+          class="service-book-button"
+        >
+          Book Appointment
+        </a>
+
+
+        <% if (user && user.role === 'admin') { %>
+
+          <div class="admin-service-actions">
+
+            <a
+              href="/services/<%= service._id %>/edit"
+            >
+              Edit Service
+            </a>
+
+            <form
+              action="/services/<%= service._id %>?_method=DELETE"
+              method="POST"
+            >
+
+              <button type="submit">
+                Delete Service
+              </button>
+
+            </form>
+
+          </div>
+
+        <% } %>
+
+
+        <a
+          href="/services"
+          class="back-services-link"
+        >
+          ← Back to Services
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>

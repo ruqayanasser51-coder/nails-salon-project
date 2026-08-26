@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
+
+  <title>Our Services | Nail Salon</title>
+</head>
+
+<body>
+
+  <%- include('../partials/_navbar.ejs') %>
+
+  <main class="services-page">
+
+    <!-- SERVICES HEADER -->
+
+    <section class="services-hero">
+
+      <p class="section-label">
+        OUR SERVICES
+      </p>
+
+      <h1>
+        Nails made
+        <br />
+        for you.
+      </h1>
+
+      <p class="services-intro">
+        Thoughtful treatments, beautiful finishes,
+        and a little time dedicated entirely to you.
+      </p>
+
+    </section>
+
+
+    <!-- ADMIN ACTION -->
+
+    <% if (user && user.role === 'admin') { %>
+
+      <div class="admin-service-action">
+
+        <a
+          href="/services/new"
+          class="service-admin-button"
+        >
+          + Add Service
+        </a>
+
+      </div>
+
+    <% } %>
+
+
+    <!-- SERVICES -->
+
+    <section class="services-grid">
+
+      <% if (services.length === 0) { %>
+
+        <p class="no-services">
+          No services available at the moment.
+        </p>
+
+      <% } else { %>
+
+        <% services.forEach(service => { %>
+
+          <article class="service-card">
+
+            <div class="service-image">
+
+              <% if (service.name === 'Gel Manicure') { %>
+
+                <img
+                  src="/stylesheets/images/GelManicure.png"
+                  alt="Gel Manicure"
+                />
+
+              <% } else if (service.name === 'Classic Manicure') { %>
+
+                <img
+                  src="/stylesheets/images/ClassicManicure.png"
+                  alt="Classic Manicure"
+                />
+
+              <% } else if (service.name === 'French Manicure') { %>
+
+                <img
+                  src="/stylesheets/images/FrenchManicure.png"
+                  alt="French Manicure"
+                />
+
+              <% } else if (service.name === 'Nail Extensions') { %>
+
+                <img
+                  src="/stylesheets/images/NailExtensions.png"
+                  alt="Nail Extensions"
+                />
+
+              <% } %>
+
+            </div>
+
+
+            <div class="service-card-content">
+
+              <p class="service-number">
+                0<%= services.indexOf(service) + 1 %>
+              </p>
+
+              <h2>
+                <%= service.name %>
+              </h2>
+
+              <p class="service-description">
+                <%= service.description %>
+              </p>
+
+              <div class="service-info">
+
+                <span>
+                  <%= service.price %> BD
+                </span>
+
+                <span>
+                  <%= service.duration %> min
+                </span>
+
+              </div>
+
+              <a
+                href="/services/<%= service._id %>"
+                class="service-details-link"
+              >
+                View Details
+                <span>→</span>
+              </a>
+
+            </div>
+
+          </article>
+
+        <% }) %>
+
+      <% } %>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="services-cta">
+
+      <p class="section-label">
+        READY WHEN YOU ARE
+      </p>
+
+      <h2>
+        Your next
+        <br />
+        appointment awaits.
+      </h2>
+
+      <a
+        href="/services"
+        class="hero-button"
+      >
+        Book an Appointment
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+
+    <title>Admin Appointments | Nail Salon</title>
+  </head>
+
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>All Appointments</h1>
+
+    <% if (appointments.length === 0) { %>
+
+      <p>No appointments available.</p>
+
+    <% } else { %>
+
+      <% appointments.forEach((appointment) => { %>
+
+        <div>
+          <h2>
+            <%= appointment.service.name %>
+          </h2>
+
+          <p>
+            Customer:
+            <%= appointment.user.username %>
+          </p>
+
+          <p>
+            Date:
+            <%= new Date(appointment.appointmentDate).toLocaleDateString() %>
+          </p>
+
+          <p>
+            Time:
+            <%= appointment.appointmentTime %>
+          </p>
+
+          <p>
+            Status:
+            <%= appointment.status %>
+          </p>
+
+          <% if (appointment.notes) { %>
+            <p>
+              Notes:
+              <%= appointment.notes %>
+            </p>
+          <% } %>
+
+          <hr />
+
+        </div>
+
+      <% }) %>
+
+    <% } %>
+
+    <a href="/services">
+      View Services
+    </a>
+
+    <%- include('../partials/_footer.ejs') %>
+  </body>
+</html>

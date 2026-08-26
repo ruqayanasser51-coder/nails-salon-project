@@ -1,21 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/partials.css" />
-    <title>Home Page</title>
-  </head>
-  <body>
-     <%- include('./partials/_navbar.ejs') %>
 
-    <% if(user){ %>
-      <h1>Welcome to the app, <%= user.username %>!</h1>
-    <% }else{ %>
-      <h1>Welcome to the app!</h1>
-    <%}%>
+<head>
+  <meta charset="UTF-8" />
 
-    <%- include('./partials/_footer.ejs') %>
-  </body>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
+
+  <title>Nail Salon</title>
+</head>
+
+<body>
+
+  <%- include('./partials/_navbar.ejs') %>
+
+  <main class="home-page">
+
+    <!-- HERO SECTION -->
+
+    <section class="hero-section">
+
+      <div class="hero-content">
+
+        <p class="hero-small-text">
+          NAIL CARE · BEAUTY · SELF CARE
+        </p>
+
+        <h1>
+          Where beauty
+          <br />
+          meets stillness
+        </h1>
+
+        <p class="hero-description">
+          A quiet space dedicated to beautiful nails,
+          thoughtful care, and moments made just for you
+        </p>
+
+        <a
+          href="/services"
+          class="hero-button"
+        >
+          Book Your Appointment
+        </a>
+
+      </div>
+
+      <div class="hero-image">
+        <img src="../../stylesheets/images/hero-nails (2).jpg" alt="Beautiful nail design">
+      </div>
+
+    </section>
+
+
+    <!-- INTRODUCTION -->
+
+    <section class="intro-section">
+
+      <p class="section-label">
+        OUR PHILOSOPHY
+      </p>
+
+      <h2>
+        Beauty is in
+        <br />
+        the details
+      </h2>
+
+      <p>
+        We believe every appointment should be more
+        than just a beauty treatment. It should be a
+        moment to slow down, relax, and leave feeling
+        your best.
+      </p>
+
+    </section>
+
+
+   <!-- NAIL GALLERY -->
+
+<section class="nail-gallery">
+
+  <div class="gallery-heading">
+
+    <p class="section-label">
+      OUR WORK
+    </p>
+
+    <h2>
+      Details worth
+      <br />
+      looking at
+    </h2>
+
+  </div>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-image gallery-large">
+      <img
+        src="../../stylesheets/images/Set Manciure nails.jpg"
+        alt="Nail design"
+      />
+    </div>
+
+    <div class="gallery-image gallery-small">
+      <img
+        src="../../stylesheets/images/nails1.jpg"
+        alt="Nail design"
+      />
+    </div>
+
+    <div class="gallery-image gallery-small">
+      <img
+        src="../../stylesheets/images/nails3.jpg"
+        alt="Nail design"
+      />
+    </div>
+
+    <div class="gallery-image gallery-wide">
+      <img
+        src="../../stylesheets/images/nailsring22.png"
+        alt="Nail design"
+      />
+    </div>
+
+    
+
+  </div>
+
+</section>
+
+
+    <!-- FINAL CTA -->
+
+    <section class="home-cta">
+
+      <p class="section-label">
+        YOUR NEXT APPOINTMENT
+      </p>
+
+      <h2>
+        Take a little
+        <br />
+        time for yourself.
+      </h2>
+
+      <a
+        href="/services"
+        class="hero-button"
+      >
+        Book Now
+      </a>
+
+    </section>
+
+  </main>
+
+  <%- include('./partials/_footer.ejs') %>
+
+</body>
+
 </html>

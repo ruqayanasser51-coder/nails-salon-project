@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+
+    <title>Add Service | Nail Salon</title>
+  </head>
+
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Add a New Nail Service</h1>
+
+    <form action="/services" method="POST">
+
+      <label for="name">Service Name:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        required
+      />
+
+      <label for="description">Description:</label>
+      <textarea
+        name="description"
+        id="description"
+        required
+      ></textarea>
+
+      <label for="price">Price (BD):</label>
+      <input
+        type="number"
+        name="price"
+        id="price"
+        step="0.5"
+        required
+      />
+
+      <label for="duration">Duration:</label>
+      <input
+        type="number"
+        name="duration"
+        id="duration"
+        required
+      />
+
+      <button type="submit">Add Service</button>
+    </form>
+
+    <a href="/services">Back to Services</a>
+
+    <%- include('../partials/_footer.ejs') %>
+  </body>
+</html>

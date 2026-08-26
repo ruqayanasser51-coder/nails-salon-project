@@ -10,3 +10,267 @@
 
 }
 
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-bell {
+  text-decoration: none;
+  font-size: 20px;
+  position: relative;
+}
+
+.notification-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 280px;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.notification-dropdown.show {
+  display: block;
+}
+
+.notification-dropdown h3 {
+  margin-top: 0;
+}
+
+.notification-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-item p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.notification-dropdown > a {
+  display: block;
+  margin-top: 12px;
+}
+
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-bell {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px 8px;
+}
+
+.notification-count {
+  position: absolute;
+  top: -2px;
+  right: -3px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 50%;
+  background: #8b6f5a;
+  color: white;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 38px;
+  right: 0;
+  width: 300px;
+  background: #f8f6f2;
+  border: 1px solid #ded8d0;
+  border-radius: 12px;
+  padding: 18px;
+  z-index: 1000;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.notification-dropdown.show {
+  display: block;
+}
+
+.notification-dropdown h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+}
+
+.notification-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #ded8d0;
+}
+
+.notification-item strong {
+  font-size: 16px;
+}
+
+.notification-item p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.notification-dropdown > a {
+  display: inline-block;
+  margin-top: 15px;
+  text-decoration: none;
+}
+
+/* ===============================
+   LUXURY NAIL SALON NAVBAR
+   =============================== */
+
+#navbar {
+  width: 100%;
+  padding: 22px 45px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 28px;
+  box-sizing: border-box;
+  background: #f8f5f0;
+  border-bottom: 1px solid #e5ded5;
+}
+
+#navbar .nav-link {
+  color: #3d3028;
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease;
+}
+
+#navbar .nav-link:hover {
+  opacity: 0.55;
+}
+
+/* Notification */
+
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-bell {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #3d3028;
+  font-size: 19px;
+  padding: 4px 7px;
+}
+
+.notification-count {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: #8b6f5a;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Notification dropdown */
+
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 38px;
+  right: 0;
+  width: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #f8f5f0;
+  border: 1px solid #ded5cc;
+  border-radius: 12px;
+  z-index: 1000;
+  box-shadow: 0 12px 30px rgba(61, 48, 40, 0.12);
+}
+
+.notification-dropdown.show {
+  display: block;
+}
+
+.notification-dropdown h3 {
+  margin: 0 0 15px;
+  color: #3d3028;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 19px;
+  font-weight: normal;
+}
+
+.notification-item {
+  padding: 13px 0;
+  border-bottom: 1px solid #e2dad1;
+}
+
+.notification-item:last-of-type {
+  border-bottom: none;
+}
+
+.notification-item strong {
+  color: #3d3028;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+}
+
+.notification-item p {
+  margin: 6px 0;
+  color: #6f6259;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.notification-dropdown > a {
+  display: inline-block;
+  margin-top: 14px;
+  color: #3d3028;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.notification-dropdown > a:hover {
+  text-decoration: underline;
+}

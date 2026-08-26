@@ -5,19 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
   </head>
+
   <body>
-    <h1>Create a new account!</h1>
+
+    <h1>Create a New Account</h1>
+
     <form action="/auth/sign-up" method="POST">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" required />
+
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        required
+      />
+
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        required
+      />
+
+      <label for="contact">Contact:</label>
+      <input
+        type="text"
+        name="contact"
+        id="contact"
+        required
+      />
 
       <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        required
+      />
 
       <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" name="confirmPassword" id="confirmPassword" required />
+      <input
+        type="password"
+        name="confirmPassword"
+        id="confirmPassword"
+        required
+      />
 
-      <button type="submit">Sign up</button>
+      <button type="submit">
+        Sign Up
+      </button>
+
     </form>
+
+    <p>
+      Already have an account?
+      <a href="/auth/sign-in">Sign In</a>
+    </p>
+
   </body>
 </html>

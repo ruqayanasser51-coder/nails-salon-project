@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/style.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/stylesheets/partials.css"
+  />
+
+  <title>Book Appointment | Nail Salon</title>
+</head>
+
+<body>
+
+  <%- include('../partials/_navbar.ejs') %>
+
+  <main class="booking-page">
+
+    <section class="booking-layout">
+
+      <!-- SERVICE IMAGE -->
+
+      <div class="booking-image">
+
+        <% if (service.name === 'Gel Manicure') { %>
+
+          <img
+            src="/stylesheets/images/GelManicure.png"
+            alt="Gel Manicure"
+          />
+
+        <% } else if (service.name === 'Classic Manicure') { %>
+
+          <img
+            src="/stylesheets/images/ClassicManicure.png"
+            alt="Classic Manicure"
+          />
+
+        <% } else if (service.name === 'French Manicure') { %>
+
+          <img
+            src="/stylesheets/images/FrenchManicure.png"
+            alt="French Manicure"
+          />
+
+        <% } else if (service.name === 'Nail Extensions') { %>
+
+          <img
+            src="/stylesheets/images/NailExtensions.png"
+            alt="Nail Extensions"
+          />
+
+        <% } %>
+
+      </div>
+
+
+      <!-- BOOKING FORM -->
+
+      <div class="booking-content">
+
+        <p class="section-label">
+          YOUR APPOINTMENT
+        </p>
+
+        <h1>
+          Book your
+          <br />
+          appointment.
+        </h1>
+
+        <div class="booking-service">
+
+          <h2>
+            <%= service.name %>
+          </h2>
+
+          <p>
+            <%= service.description %>
+          </p>
+
+          <div class="booking-service-info">
+
+            <span>
+              <%= service.price %> BD
+            </span>
+
+            <span>
+              <%= service.duration %> minutes
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <form
+          action="/appointments"
+          method="POST"
+          class="booking-form"
+        >
+
+          <input
+            type="hidden"
+            name="serviceId"
+            value="<%= service._id %>"
+          />
+
+
+          <!-- DATE -->
+
+          <div class="form-field">
+
+            <label for="appointmentDate">
+              Choose Date
+            </label>
+
+            <input
+              type="date"
+              name="appointmentDate"
+              id="appointmentDate"
+              required
+            />
+
+          </div>
+
+
+          <!-- TIME -->
+
+          <div class="form-field">
+
+            <label for="appointmentTime">
+              Choose Time
+            </label>
+
+            <input
+              type="time"
+              name="appointmentTime"
+              id="appointmentTime"
+              required
+            />
+
+          </div>
+
+
+          <!-- NOTES -->
+
+          <div class="form-field">
+
+            <label for="notes">
+              Notes
+            </label>
+
+            <textarea
+              name="notes"
+              id="notes"
+              placeholder="Any special requests?"
+              rows="4"
+            ></textarea>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="booking-button"
+          >
+            Confirm Appointment
+          </button>
+
+        </form>
+
+
+        <a
+          href="/services"
+          class="back-services-link"
+        >
+          ← Back to Services
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>

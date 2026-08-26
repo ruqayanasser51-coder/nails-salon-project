@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+
+    <title>Edit Service | Nail Salon</title>
+  </head>
+
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Edit Service</h1>
+
+    <form
+      action="/services/<%= service._id %>?_method=PUT"
+      method="POST"
+    >
+
+      <label for="name">Service Name:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        value="<%= service.name %>"
+        required
+      />
+
+      <label for="description">Description:</label>
+      <textarea
+        name="description"
+        id="description"
+        required
+      ><%= service.description %></textarea>
+
+      <label for="price">Price (BD):</label>
+      <input
+        type="number"
+        name="price"
+        id="price"
+        step="0.5"
+        value="<%= service.price %>"
+        required
+      />
+
+      <label for="duration">Duration:</label>
+      <input
+        type="number"
+        name="duration"
+        id="duration"
+        value="<%= service.duration %>"
+        required
+      />
+
+      <button type="submit">Update Service</button>
+    </form>
+
+    <a href="/services/<%= service._id %>">
+      Cancel
+    </a>
+
+    <%- include('../partials/_footer.ejs') %>
+  </body>
+</html>

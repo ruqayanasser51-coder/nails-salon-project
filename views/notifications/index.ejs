@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <link
+      rel="stylesheet"
+      href="/stylesheets/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="/stylesheets/partials.css"
+    />
+
+    <title>Notifications | Nail Salon</title>
+  </head>
+
+  <body>
+
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Notifications</h1>
+
+    <% if (appointments.length === 0) { %>
+
+    <%
+  const appointmentDate = new Date(appointment.appointmentDate);
+
+  const today = new Date();
+
+  const differenceInTime =
+    appointmentDate.getTime() - today.getTime();
+
+  const differenceInDays =
+    Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+%>
+
+<% if (differenceInDays <= 0) { %>
+
+  <p>
+    🔔 Your appointment is today!
+  </p>
+
+<% } else if (differenceInDays === 1) { %>
+
+  <p>
+    🔔 Your appointment is tomorrow!
+  </p>
+
+<% } else { %>
+
+  <p>
+    🔔 Your appointment is in
+    <%= differenceInDays %> days!
+  </p>
+
+<% } %>
+
+    <% } else { %>
+
+      <% appointments.forEach(appointment => { %>
+
+        <div class="notification">
+
+          <h2>
+            Upcoming Appointment
+          </h2>
+
+          <p>
+            <strong>
+              <%= appointment.service.name %>
+            </strong>
+          </p>
+
+          <p>
+            Date:
+            <%= new Date(appointment.appointmentDate).toLocaleDateString() %>
+          </p>
+
+          <p>
+            Time:
+            <%= appointment.appointmentTime %>
+          </p>
+
+          <p>
+            Your appointment is coming up!
+          </p>
+
+        </div>
+
+      <% }) %>
+
+    <% } %>
+
+    <%- include('../partials/_footer.ejs') %>
+
+  </body>
+</html>
