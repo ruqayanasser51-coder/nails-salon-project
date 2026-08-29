@@ -1,272 +1,237 @@
-💅 Rare Nails — Nail Salon Booking Website
+# 💅 Rare Nails — Nail Salon Booking Website
 
+![Rare Nails Website](./public/stylesheets/images/screenshootweb.png)
 
+Rare Nails is a full-stack nail salon booking website designed to make it easier for customers to explore nail services, view service details, and book appointments online.
 
-![alt text](/public/stylesheets/images/screenshootweb.png)
+Customers can browse available services, create an account, book appointments, manage their bookings, and receive notifications for upcoming appointments.
 
-A full-stack nail salon booking website built with Node.js, Express.js, MongoDB, EJS, HTML, CSS, and JavaScript.
+Admin users can manage nail services and view all customer appointments.
 
-Customers can browse nail services, view service details, create appointments, manage their bookings, and receive notifications for upcoming appointments. Admin users can manage nail services and view all customer appointments.
+---
 
-📌 Features
+## 📌 Features
 
-👩 Customer Features
+### 👩 Customer Features
 
-📝 Create a customer account
+- 📝 Create a customer account
+- 🔐 Sign in and sign out
+- 💅 View all available nail services
+- 🔎 View detailed information about each service
+- 💰 View service prices
+- ⏱️ View service duration
+- 📅 Choose an appointment date
+- 🕐 Choose an appointment time
+- 📝 Add notes to an appointment
+- 🚫 Prevent double-booking the same date and time
+- 📋 View all personal appointments
+- ✏️ Edit appointments
+- ❌ Cancel appointments
+- 🔔 Receive upcoming appointment notifications
+- 🔢 View notification count in the navigation bar
 
-🔐 Sign in and sign out
+### 👩‍💼 Admin Features
 
-💅 View all available nail services
+- 🔐 Admin sign in
+- ➕ Add a new nail service
+- 👀 View service details
+- ✏️ Edit a nail service
+- 🗑️ Delete a nail service
+- 📋 View all customer appointments
+- 👤 View customer information
+- 📅 View appointment date and time
+- 📝 View appointment notes
+- 📌 View appointment status
 
-🔎 View detailed information about each service
+---
 
-💰 View service prices
-
-⏱️ View service duration
-
-📅 Choose an appointment date
-
-🕐 Choose an appointment time
-
-📝 Add notes to an appointment
-
-🚫 Prevent double-booking the same date and time
-
-📋 View all personal appointments
-
-✏️ Edit appointments
-
-❌ Cancel appointments
-
-🔔 Receive upcoming appointment notifications
-
-🔢 Notification count in the navigation bar
-
-👩‍💼 Admin Features
-
-🔐 Admin sign in
-
-➕ Add a new nail service
-
-👀 View service details
-
-✏️ Edit a nail service
-
-🗑️ Delete a nail service
-
-📋 View all customer appointments
-
-👤 View customer information
-
-📅 View appointment date and time
-
-📝 View appointment notes
-
-📌 View appointment status
-
-💅 Available Services
+## 💅 Available Services
 
 The project currently includes:
 
-💗 Gel Manicure
-
-🌸 Classic Manicure
-
-🤍 French Manicure
-
-✨ Nail Extensions
+- 💗 Gel Manicure
+- 🌸 Classic Manicure
+- 🤍 French Manicure
+- ✨ Nail Extensions
 
 Each service includes:
 
-Service name
+- Service name
+- Description
+- Price
+- Duration
+- Service image
 
-Description
+---
 
-Price
+## 🎮 How to Use
 
-Duration
+### Customer
 
-Service image
+1. Create a new account.
+2. Sign in to the website.
+3. Open **Services**.
+4. Choose a nail service.
+5. Click **View Details**.
+6. Click **Book Appointment**.
+7. Select a date and time.
+8. Add optional notes.
+9. Confirm the appointment.
+10. Open **My Appointments** to view, edit, or cancel the booking.
+11. Use the notification bell to see upcoming appointments.
 
-🎮 How to Use
+### Admin
 
-Customer
+1. Sign in using an admin account.
+2. Open **Services** to manage nail services.
+3. Add, edit, or delete services.
+4. Open **All Appointments** to view customer bookings.
 
-Create a new account.
+---
 
-Sign in to the website.
-
-Open Services.
-
-Choose a nail service.
-
-Click View Details.
-
-Click Book Appointment.
-
-Select a date and time.
-
-Add optional notes.
-
-Confirm the appointment.
-
-Open My Appointments to view, edit, or cancel your booking.
-
-Use the notification bell to see upcoming appointments.
-
-Admin
-
-Sign in using an admin account.
-
-Open Services to manage nail services.
-
-Add, edit, or delete services.
-
-Open All Appointments to view customer bookings.
-
-🔔 Appointment Notifications
+## 🔔 Appointment Notifications
 
 The website includes a notification system for upcoming appointments.
 
-Customers can see:
+Customers can receive notifications such as:
 
-🔔 Your appointment is today!
-
-or:
-
-🔔 Your appointment is tomorrow!
-
-or:
-
-🔔 Your appointment is in X days!
+- 🔔 Your appointment is today!
+- 🔔 Your appointment is tomorrow!
+- 🔔 Your appointment is in X days!
 
 The navigation bar also displays a notification count when upcoming appointments are available.
 
-🚫 Double Booking Protection
+---
+
+## 🚫 Double Booking Protection
 
 The application checks whether a selected appointment date and time are already booked.
 
-If the time is unavailable, the customer receives:
+If the selected date and time are unavailable, the customer receives an error message and is asked to choose another available time.
 
-This date and time is already booked. Please choose another time.
+Example:
 
-The customer can then choose another available time without leaving the booking page.
+> This date and time is already booked. Please choose another time.
 
-🔐 Authentication
+This prevents two customers from booking the same date and time.
+
+---
+
+## 🔐 Authentication & Authorization
 
 The project uses session-based authentication.
 
-Customer Authentication
+### Customer Authentication
 
 Customers can:
 
-Sign Up
+- Sign Up
+- Sign In
+- Sign Out
 
-Sign In
+Passwords are hashed using **bcrypt** before being stored in the database.
 
-Sign Out
-
-Passwords are hashed using bcrypt before being stored in the database.
-
-User Roles
+### User Roles
 
 There are two user roles:
 
-customer
-admin
+- `customer`
+- `admin`
 
 Each role has different permissions and navigation options.
 
-🗃️ Database
+Customers can manage their own appointments, while admins can manage services and view all customer appointments.
 
-The project uses MongoDB with Mongoose.
+---
 
-User
+## 🗃️ Database
+
+The project uses **MongoDB** with **Mongoose**.
+
+### User
 
 Stores customer and admin account information.
 
 Main fields:
 
-name
-email
-password
-contact
-role
+- `name`
+- `email`
+- `password`
+- `contact`
+- `role`
 
-Service
+### Service
 
 Stores nail service information.
 
 Main fields:
 
-name
-description
-price
-duration
+- `name`
+- `description`
+- `price`
+- `duration`
 
-Appointment
+### Appointment
 
 Stores customer bookings.
 
 Main fields:
 
-user
-service
-appointmentDate
-appointmentTime
-notes
-status
+- `user`
+- `service`
+- `appointmentDate`
+- `appointmentTime`
+- `notes`
+- `status`
 
-🛠️ Built With
+---
 
-Frontend
+## 🛠️ Technologies Used
 
-HTML5
+### Frontend
 
-CSS3
+- HTML5
+- CSS3
+- JavaScript
+- EJS
 
-JavaScript
+### Backend
 
-EJS
+- Node.js
+- Express.js
 
-Backend
+### Database
 
-Node.js
+- MongoDB
+- Mongoose
 
-Express.js
+### Authentication & Packages
 
-Database
+- Express Session
+- Connect Mongo
+- bcrypt
+- dotenv
+- method-override
+- Morgan
+- Nodemon
 
-MongoDB
+---
 
-Mongoose
+## 📐 Entity Relationship Diagram
 
-Authentication & Packages
+![Entity Relationship Diagram](./Untitled%20Diagram.drawio%20(1).png)
 
-Express Session
+---
 
-Connect Mongo
+## 🎨 Initial Prototype
 
-bcrypt
+![Initial Prototype](./Untitled-2026-08-20-1056.png)
 
-dotenv
+---
 
-method-override
+## 📁 Project Structure
 
-Morgan
-
-Nodemon
-
-📐 Entity Relationship Diagram
-
-
-
-🎨 Initial Prototype
-
-
-
-📁 Project Structure
-
+```text
 NailsSalon/
 │
 ├── config/
@@ -323,18 +288,18 @@ NailsSalon/
 ├── README.md
 └── .env
 
-🌐 Main Routes
+----
 
+## 🌐 Main Routes
 Authentication
-
 GET  /auth/sign-up
 POST /auth/sign-up
 GET  /auth/sign-in
 POST /auth/sign-in
 GET  /auth/sign-out
 
-Services
 
+Services
 GET    /services
 GET    /services/new
 POST   /services
@@ -343,8 +308,8 @@ GET    /services/:id/edit
 PUT    /services/:id
 DELETE /services/:id
 
-Appointments
 
+Appointments
 GET    /appointments
 GET    /appointments/new/:serviceId
 POST   /appointments
@@ -352,42 +317,16 @@ GET    /appointments/:id/edit
 PUT    /appointments/:id
 DELETE /appointments/:id
 
+
 Notifications
-
 GET /notifications
-
 Admin
-
 GET /admin/appointments
 
-🚀 Getting Started
 
-Installation
-
-Install the project dependencies:
-
-npm install
-
-Create a .env file in the root directory:
-
-MONGODB_URI=your_mongodb_connection_string
-SESSION_SECRET=your_session_secret
-PORT=3000
-
-Run Locally
-
-Start the development server:
-
-npm run dev
-
-Open the website in your browser:
-
-http://localhost:3000
-
-🔄 User Flow
+## 🔄 User Flow
 
 Customer Flow
-
 Home
   ↓
 Sign Up / Sign In
@@ -405,9 +344,7 @@ Confirm Booking
 My Appointments
   ↓
 Edit / Cancel Appointment
-
 Admin Flow
-
 Sign In
   ↓
 Admin Navigation
@@ -420,118 +357,108 @@ All Appointments
   ↓
 View Customer Bookings
 
-🧩 CRUD Operations
+
+## 🧩 CRUD Operations
 
 The project demonstrates CRUD functionality.
 
 Create
-
 Create a customer account
-
 Create a nail service
-
 Create an appointment
-
 Read
-
 View services
-
 View service details
-
 View appointments
-
 View notifications
-
 View all admin appointments
-
 Update
-
 Edit a nail service
-
 Edit an appointment
-
 Change appointment status when cancelled
-
 Delete
-
 Delete a nail service
 
-📱 Design
+
+## 📱 Design
 
 The website uses a minimal and elegant nail salon aesthetic.
 
 Design Elements
-
 🤎 Warm cream background
-
 🤎 Dark brown typography
-
 🌸 Soft beige tones
-
 ✨ Serif headings
-
 💅 Large nail photography
-
 🧴 Minimal navigation
-
 🌫️ Subtle shadows
-
 ↔️ Smooth hover transitions
-
 📱 Responsive layout
-
 💅 Rare Nails custom logo
-
 🖼️ Branding
 
-The website is branded as:
 
+The website is branded as:
 Rare Nails
 
-The Rare Nails logo is used in the navigation bar and as the website favicon.
+The logo file is:
+naillogo1.jpg
 
-🔮 Future Improvements
-
-Add a customer profile page
-
-Add an admin dashboard
-
-Add a calendar-based booking interface
-
-Display only available appointment times
-
-Add email appointment confirmations
-
-Add automatic appointment reminders
-
-Add service image uploads
-
-Add service search and filtering
-
-Improve mobile navigation
-
-Add more detailed form validation
-
-Add better error pages
-
-Add an admin calendar for appointment management
 
 🙏 Attributions
+Nail Service & Website Images
 
-Nail service and website imagery used for the project UI.
+The following images were sourced from Pinterest:
 
-Rare Nails logo created for the project.
+ https://pin.it/6zFz88Tvb — hero-nails (2).jpg
+
+https://pin.it/7qNFDlAGA — ClassicManicure.png
+
+https://pin.it/4A48ppwQm — FrenchManicure.png
+
+https://pin.it/4vWEqCgGT — GelManicure.png
+
+https://pin.it/3DvgjMY9S — NailExtensions.png
+
+https://pin.it/215gLZb9v — nails1.jpg
+
+https://pin.it/5XSQlWTrF — nails3.jpg
+
+https://pin.it/6pQ5PTkty — nailsring22.png
+
+https://pin.it/RMviMcFIY — Set Manciure nails.jpg
+
+
+Logo:
+The Rare Nails logo was designed by me using Canva for this project.
 
 No external frontend libraries are required for the website interface.
 
-👨‍💻 Author
+
+## 🔮 Future Improvements
+
+Add a customer profile page
+Add an admin dashboard
+Add a calendar-based booking interface
+Display only available appointment times
+Add email appointment confirmations
+Add automatic appointment reminders
+Add service image uploads
+Add service search and filtering
+Improve mobile navigation
+Add more detailed form validation
+Add better error pages
+Add an admin calendar for appointment management
+
+
+## 👩‍💻 Author
 
 Rare Nails — Nail Salon Booking Website
 
-GitHub Repository:
+### GitHub Repository
 
-GitHub(https://github.com/ruqayanasser51-coder/nails-salon-project.git)
+[View GitHub Repository](https://github.com/ruqayanasser51-coder/nails-salon-project)
 
+### Live Demo
 
-
-⭐ If you enjoyed this project, feel free to give it a star on GitHub.
+[Visit Live Website](https://nails-salon-project.onrender.com)
